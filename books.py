@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 from urllib.parse import urljoin
 from time import sleep
+import json
 
 page = 1
 
@@ -35,11 +36,11 @@ while True:
             "availability": availability
         }
         all_books.append(current_book)
-
+    
     page += 1 
     sleep(1)
 
-for book in all_books:
-    print(book)
+with open("data.json", "w", encoding="utf-8") as file:
+    json.dump({"books": all_books}, file, indent=4, ensure_ascii=False)
 
 print("Book amount:", len(all_books))
